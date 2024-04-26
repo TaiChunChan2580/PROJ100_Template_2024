@@ -18,6 +18,8 @@ DigitalOut greenLED(LED1);          //Instance of the DigitalOut class called 'g
 
 Motor Wheel(D13,D11,D9,D10);      //Instance of the Motor Class called 'Wheel' see motor.h and motor.cpp
 
+
+
 PROJ100_Encoder right_encoder (ENCODER_PIN_RIGHT,PULSES_PER_ROTATION);  //Instance of the PROJ100Encoder class called 'right_encoder'
 PROJ100_Encoder left_encoder(ENCODER_PIN_LEFT,PULSES_PER_ROTATION);     //Instance of the PROJ100Encoder class called 'left_encoder'
 
@@ -58,16 +60,77 @@ int main ()
     // simple_test();
     //speed_test();
 
+    int blue=0;
+
     while(true){
 
         // Write the parts of your code which should run in a loop between here..
 
-        Wheel.Speed(0.8,0.65);//Forward
-        wait_us(10000000);
-        Wheel.Speed(0,0);
-        wait_us(1000000);
+        while(myButton == 1){
+            blue++;
+            wait_us(100000);
+        }
+
+        if(blue < 50){
+            //For Football field
+            Wheel.Speed(0.8,0.65);//Forward
+            wait_us(10000000);
+
+            Wheel.Speed(0,0);
+            wait_us(1000000);
+
+            Wheel.Speed(0.8,-0.65);//Turn Right
+            wait_us(2750000);
+
+            Wheel.Speed(0,0);
+            wait_us(1000000);
+
+            Wheel.Speed(0.8,0.65);//Forward
+            wait_us(10000000);
+
+            Wheel.Speed(0,0);
+            wait_us(1000000);
+
+            Wheel.Speed(0.8,-0.65);//Turn Right
+            wait_us(2750000);
+        }
 
         // ..and here
 
+        //For Beads
+        else if(blue > 50){
+            tone1();
+            for(int count = 0; count<888; count++) {
+                Wheel.Speed(0.65,0.8);//Forward
+                wait_us(4000000);
+
+                Wheel.Speed(0,0);
+                wait_us(1000000);
+
+                Wheel.Speed(-0.8,-0.7);
+                wait_us(4000000);
+
+                Wheel.Speed(0,0);
+                wait_us(1000000);
+
+                Wheel.Speed(0.7,-0.8);//Turn Right
+                wait_us(1000000);//Turn till 90 degrees
+
+                Wheel.Speed(0,0);
+                wait_us(1000000);
+
+                Wheel.Speed(0.65,0.8);//Forward
+                wait_us(2000000);
+
+                Wheel.Speed(0,0);
+                wait_us(1000000);
+
+                Wheel.Speed(-0.8,0.7);//left
+                wait_us(1000000);//Turn till 90 degrees
+
+                Wheel.Speed(0,0);
+                wait_us(1000000);
+            }
+        }
     };
 }
