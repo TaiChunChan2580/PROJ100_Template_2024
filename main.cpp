@@ -56,14 +56,16 @@ int main ()
     /*************************************************/
 
     // simple_test();
-    speed_test();
+    //speed_test();
 
     while(true){
 
         // Write the parts of your code which should run in a loop between here..
 
-
-
+        Wheel.Speed(0.8,0.65);//Forward
+        wait_us(10000000);
+        Wheel.Speed(0,0);
+        wait_us(1000000);
 
         // ..and here
 
